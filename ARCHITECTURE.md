@@ -20,7 +20,7 @@ and **how every deliverable maps back to the marking scheme**. Read this before 
 
 **Guiding question (Section III):** *Can a lender predict which microloans will be defaulted on, and how should such a model be judged?*
 
-### Individualised configuration (Task 0 — verified locally; master checksum `2AFAEA208FCBF28D` ✓)
+### Individualised configuration (Task 0 — verified locally; master checksum `2AFAEA208FCBF28D` — matches)
 
 | Key | Value |
 |---|---|
@@ -37,12 +37,12 @@ and **how every deliverable maps back to the marking scheme**. Read this before 
 
 ```mermaid
 flowchart LR
-    subgraph IN["📥 Inputs (frozen)"]
+    subgraph IN["Inputs (frozen)"]
         A1[Assignment brief PDF]
         A2[Provided notebook cells<br/>generator · seeds · individualisation]
     end
 
-    subgraph CORE["⚙️ Core library — src/rinn"]
+    subgraph CORE["Core library — src/rinn"]
         C1[data.py<br/>master dataset + roll→version]
         C2[features.py<br/>prepare_features — fit-only median + scaler]
         C3[models.py<br/>LR · KNN · GNB · Tree · LinearSVM · Dummy]
@@ -51,18 +51,18 @@ flowchart LR
         C6[hand_calcs.py<br/>Section II verifier]
     end
 
-    subgraph NB["📓 Notebooks"]
+    subgraph NB["Notebooks"]
         N1[01_section_III_submission<br/>graded, provided cells untouched]
         N2[02_extended_analysis<br/>portfolio: CV · calibration · cost curves]
     end
 
-    subgraph REP["📄 Written report — LaTeX"]
+    subgraph REP["Written report — LaTeX"]
         R1[Section I answers]
         R2[Section II working]
         R3[references.bib]
     end
 
-    subgraph OUT["📦 Deliverables"]
+    subgraph OUT["Deliverables"]
         O1[ROLLNO_ML_Written.pdf]
         O2[ROLLNO_ML_Notebook.ipynb / .pdf]
         O3[assignment_config.json]
@@ -95,7 +95,7 @@ flowchart LR
 flowchart TD
     M[(Master dataset<br/>3 000 loans · seed 20260101)] -->|SHA-256 roll → seed| S[Student sample<br/>900 loans · 20 % default]
     S -->|stratified 80/20| TR[Train 720]
-    S -->|stratified 80/20| TE[Test 180 🔒]
+    S -->|stratified 80/20| TE[Test 180 · locked]
     TR -->|stratified 80/20| FIT[Fit 576]
     TR -->|stratified 80/20| VAL[Validation 144]
 
@@ -232,7 +232,7 @@ Kept in `02_extended_analysis.ipynb` so the graded notebook stays exactly as spe
 
 | Phase | Work | Exit criterion |
 |---|---|---|
-| **P0** Setup | env, skeleton, README, LaTeX template | `make env && make report` builds a PDF ✅ (this step) |
+| **P0** Setup | env, skeleton, README, LaTeX template | `make env && make report` builds a PDF — done |
 | **P1** Section III | Tasks 1 – 7 in graded notebook | Restart & Run All clean; checksum matches `2AFAEA208FCBF28D` |
 | **P2** Section II | hand working in LaTeX + verifier | `verify_hand_calcs.py` passes |
 | **P3** Section I | five answers | `wordcount.py` passes |
@@ -242,7 +242,7 @@ Kept in `02_extended_analysis.ipynb` so the graded notebook stays exactly as spe
 
 ---
 
-## 8. Compliance & integrity guard-rails ⚠️
+## 8. Compliance & integrity guard-rails
 
 - **Do not edit `PROVIDED` cells**, seeds or assigned K / depth — enforced by test.
 - **AI use must be disclosed** (tool, purpose, parts affected) in both the notebook declaration and on page 1 of the written PDF. You must be able to explain every line in the oral check — we'll write it so you can.

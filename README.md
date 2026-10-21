@@ -27,16 +27,16 @@ The project pairs a **machine-verified LaTeX report** (theory and hand derivatio
 > The data are **synthetic**: they are produced by a seeded generator and describe no real borrowers.
 > Findings illustrate method, not real-world lending policy.
 
-## ✨ Highlights
+## <img src="docs/assets/icons/highlights.svg" width="20" height="20" align="top" alt=""> Highlights
 
-- 🔒 **Leakage-safe by construction.** Imputation medians and scaling parameters are learned on the fit partition only, and the test set is opened exactly once. Unit tests enforce both.
-- ⚖️ **Imbalance-aware evaluation.** Every model is compared with a trivial baseline, which scores 80 % accuracy and 0 % recall here. Metrics come from a hand-written `metrics_from_cm`, checked against scikit-learn.
-- 📈 **Model behaviour, explained.** K and depth sweeps show the bias–variance trade-off, an SVM C sweep shows how the margin responds, and the tree's root split is backed by an information-gain calculation done by hand.
-- 💸 **Cost-sensitive decisions.** The decision threshold is treated as a business lever. It is chosen on validation data, never on the test set.
-- 🧮 **Verified maths.** Section II hand calculations are recomputed in Python, and the LaTeX build fails if any result disagrees.
-- 📄 **Academic report** set in LaTeX in a European style: A4 title page, declaration of authorship, author–year references.
+- <img src="docs/assets/icons/lock.svg" width="16" height="16" align="top" alt=""> **Leakage-safe by construction.** Imputation medians and scaling parameters are learned on the fit partition only, and the test set is opened exactly once. Unit tests enforce both.
+- <img src="docs/assets/icons/balance.svg" width="16" height="16" align="top" alt=""> **Imbalance-aware evaluation.** Every model is compared with a trivial baseline, which scores 80 % accuracy and 0 % recall here. Metrics come from a hand-written `metrics_from_cm`, checked against scikit-learn.
+- <img src="docs/assets/icons/chart.svg" width="16" height="16" align="top" alt=""> **Model behaviour, explained.** K and depth sweeps show the bias–variance trade-off, an SVM C sweep shows how the margin responds, and the tree's root split is backed by an information-gain calculation done by hand.
+- <img src="docs/assets/icons/cost.svg" width="16" height="16" align="top" alt=""> **Cost-sensitive decisions.** The decision threshold is treated as a business lever. It is chosen on validation data, never on the test set.
+- <img src="docs/assets/icons/verify.svg" width="16" height="16" align="top" alt=""> **Verified maths.** Section II hand calculations are recomputed in Python, and the LaTeX build fails if any result disagrees.
+- <img src="docs/assets/icons/report.svg" width="16" height="16" align="top" alt=""> **Academic report** set in LaTeX in a European style: A4 title page, declaration of authorship, author–year references.
 
-## 🧭 Pipeline
+## <img src="docs/assets/icons/pipeline.svg" width="20" height="20" align="top" alt=""> Pipeline
 
 <p align="center">
   <img src="docs/assets/pipeline.svg" alt="Pipeline" width="100%">
@@ -46,7 +46,7 @@ The project pairs a **machine-verified LaTeX report** (theory and hand derivatio
 flowchart TD
     M[(Master dataset<br/>3 000 loans)] -->|roll → SHA-256 seed| S[Personal sample<br/>900 loans · 20 % default]
     S -->|stratified 80/20| TR[Train 720]
-    S -->|stratified 80/20| TE[Test 180 🔒]
+    S -->|stratified 80/20| TE[Test 180 · locked]
     TR --> FIT[Fit 576] & VAL[Validation 144]
     FIT & VAL --> P1[prepare_features<br/>fit-only median + scaler]
     P1 --> TUNE[K · depth · C sweeps]
@@ -60,7 +60,7 @@ flowchart TD
     class TE lock
 ```
 
-## 📊 Results
+## <img src="docs/assets/icons/results.svg" width="20" height="20" align="top" alt=""> Results
 
 > *Populated once Section III is complete.*
 
@@ -73,7 +73,7 @@ flowchart TD
 | Decision tree (depth 4) | — | — | — | — | — | — |
 | Linear SVM | — | — | — | — | — | — |
 
-## 🗂️ Repository structure
+## <img src="docs/assets/icons/folder.svg" width="20" height="20" align="top" alt=""> Repository structure
 
 ```text
 rinn-microcredit-risk/
@@ -88,7 +88,7 @@ rinn-microcredit-risk/
 
 The full design is in **[ARCHITECTURE.md](ARCHITECTURE.md)**.
 
-## 🚀 Quick start
+## <img src="docs/assets/icons/terminal.svg" width="20" height="20" align="top" alt=""> Quick start
 
 ```bash
 git clone <repo-url> rinn-microcredit-risk && cd rinn-microcredit-risk
@@ -99,7 +99,7 @@ make report     # compile LaTeX → report/written/build/main.pdf
 make all        # everything above
 ```
 
-## 🧠 Methods at a glance
+## <img src="docs/assets/icons/methods.svg" width="20" height="20" align="top" alt=""> Methods at a glance
 
 | Concept | Where it appears |
 |---|---|
@@ -111,11 +111,11 @@ make all        # everything above
 | Max-margin SVM, regularisation C | Report § I.5 · Notebook Task 5.3 |
 | Naive Bayes | Report § II.E6 · Notebook Task 4 |
 
-## 📚 Context
+## <img src="docs/assets/icons/context.svg" width="20" height="20" align="top" alt=""> Context
 
 Built for *Introduction to Machine Learning* (BS Analytics, School of Analytics, Tata Institute of Social Sciences)
 and extended into a portfolio project. AI assistance was used and is disclosed in the report, as the course policy requires.
 
-## 📝 License
+## <img src="docs/assets/icons/license.svg" width="20" height="20" align="top" alt=""> License
 
 MIT. See [LICENSE](LICENSE). The assignment brief and the provided notebook cells belong to the course instructors and are not covered by this licence.

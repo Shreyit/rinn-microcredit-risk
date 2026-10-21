@@ -14,11 +14,12 @@ Full blueprint: `ARCHITECTURE.md` (read it first). Original brief: `assignment/B
 | Sample | 900 loans, 180 defaults; train 720 / test 180 (36 positives); fit 576 / val 144 |
 | Master checksum | `2AFAEA208FCBF28D` (matches reference with numpy 2.4.6, pandas 3.0.6, sklearn 1.9.1) |
 
-⚠️ `notebooks/01_section_III_submission.ipynb` still shows Task 0 output from a **wrong roll (…002)**.
+**Warning:** `notebooks/01_section_III_submission.ipynb` still shows Task 0 output from a **wrong roll (…002)**.
 It must be re-run with `M2024BSASS027` (Task 0 uses `input()`, so run interactively or feed stdin).
 Version ID must match in the notebook, `assignment_config.json` and page 1 of the written PDF.
 
 ## Hard rules (marks or integrity are at stake)
+- **No emojis anywhere** (README, docs, notebooks, report). Use the SVG icons in `docs/assets/icons/` instead.
 - **Never edit `PROVIDED` cells**, seeds, or assigned K/depth in the graded notebook. Only fill `YOUR CODE HERE` cells and answer markdown cells.
 - **Test set is used only in Task 6/7.** All tuning on `X_fit`/`X_val`. `prepare_features` fits medians + scaler on the fit part only.
 - **Respect word limits** in every written answer (equations/tables excluded).
@@ -45,8 +46,8 @@ make notebooks # execute notebooks in place
 - Report macros: `\question{1.1}{2 marks}{text}` restates a question, `\wordlimit{300}`, `\pending` marks unfinished parts (remove before submission), `\finalans{}`.
 
 ## Status (2026-10-21)
-- ✅ P0 setup: architecture, README + SVGs, LaTeX skeleton compiles (all answers `\pending`), env built.
-- ⏭️ Next: P1 Section III notebook (Tasks 0–7) → P2 Section II → P3 Section I → library/tests → extended notebook → zip.
+- Done — P0 setup: architecture, README + SVGs, LaTeX skeleton compiles (all answers `\pending`), env built.
+- Next: P1 Section III notebook (Tasks 0–7) → P2 Section II → P3 Section I → library/tests → extended notebook → zip.
 - Missing info: course instructor name (`<Course Instructor>` in `metadata.tex`).
 
 ## Submission (`M2024BSASS027.zip`)

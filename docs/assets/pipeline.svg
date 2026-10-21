@@ -65,5 +65,10 @@
   <rect class="lock" x="642" y="205" width="20" height="16" rx="3"/>
   <path d="M646,205 v-5 a6,6 0 0 1 12,0 v5" fill="none" stroke="var(--lock)" stroke-width="2.5"/>
   <text class="lockt" x="672" y="219">TEST SET — opened once, at step 06</text>
-  <text class="okt" x="20" y="35">✓ provided cells untouched   ✓ no leakage   ✓ seeds fixed</text>
+  <g fill="none" stroke="var(--ok)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M22,30 l3,3 l6,-7"/><path d="M226,30 l3,3 l6,-7"/><path d="M352,30 l3,3 l6,-7"/>
+  </g>
+  <text class="okt" x="38" y="35">provided cells untouched</text>
+  <text class="okt" x="242" y="35">no leakage</text>
+  <text class="okt" x="368" y="35">seeds fixed</text>
 </svg>
