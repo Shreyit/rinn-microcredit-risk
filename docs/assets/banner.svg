@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 320" width="1200" height="320" role="img" aria-label="Rinn — Microcredit Default Risk">
+  <style>
+    :root { --bg1:#0f172a; --bg2:#1e293b; --fg:#f8fafc; --muted:#94a3b8; --acc:#22c55e; --acc2:#f59e0b; --grid:#334155; }
+    @media (prefers-color-scheme: light) {
+      :root { --bg1:#f8fafc; --bg2:#e2e8f0; --fg:#0f172a; --muted:#475569; --acc:#16a34a; --acc2:#d97706; --grid:#cbd5e1; }
+    }
+    .bg { fill: url(#g); }
+    .title { font: 700 76px ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif; fill: var(--fg); letter-spacing: 2px; }
+    .deva { font: 600 40px "Noto Sans Devanagari", "Kohinoor Devanagari", sans-serif; fill: var(--acc2); }
+    .sub { font: 400 24px ui-sans-serif, system-ui, sans-serif; fill: var(--muted); }
+    .tag { font: 600 15px ui-monospace, SFMono-Regular, Menlo, monospace; fill: var(--fg); }
+    .pill { fill: none; stroke: var(--grid); stroke-width: 1.5; }
+    .grid { stroke: var(--grid); stroke-width: 1; }
+    .diag { stroke: var(--muted); stroke-width: 1.5; stroke-dasharray: 5 5; }
+    .roc { fill: none; stroke: var(--acc); stroke-width: 4; stroke-linecap: round;
+           stroke-dasharray: 520; stroke-dashoffset: 520; animation: draw 3.2s ease-out infinite alternate; }
+    .auc { fill: var(--acc); opacity: 0; animation: fade 3.2s ease-out infinite alternate; }
+    .pt  { animation: pulse 2.4s ease-in-out infinite; transform-origin: center; transform-box: fill-box; }
+    .p0 { fill: var(--muted); } .p1 { fill: var(--acc2); }
+    .d1 { animation-delay: .3s } .d2 { animation-delay: .6s } .d3 { animation-delay: .9s } .d4 { animation-delay: 1.2s }
+    .ax { font: 500 12px ui-monospace, monospace; fill: var(--muted); }
+    @keyframes draw { to { stroke-dashoffset: 0; } }
+    @keyframes fade { 0%,40% { opacity: 0 } 100% { opacity: .14 } }
+    @keyframes pulse { 0%,100% { transform: scale(1); opacity: .9 } 50% { transform: scale(1.45); opacity: .5 } }
+    @media (prefers-reduced-motion: reduce) { .roc, .auc, .pt { animation: none; stroke-dashoffset: 0; } .auc { opacity: .14 } }
+  </style>
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" style="stop-color:var(--bg1)"/><stop offset="1" style="stop-color:var(--bg2)"/>
+    </linearGradient>
+  </defs>
+
+  <rect class="bg" width="1200" height="320" rx="18"/>
+
+  <!-- left: identity -->
+  <text x="60" y="130" class="title">Rinn</text>
+  <text x="262" y="128" class="deva">ऋण</text>
+  <text x="62" y="176" class="sub">Microcredit default risk — leakage-safe modelling</text>
+  <text x="62" y="208" class="sub">&amp; honest evaluation under class imbalance</text>
+
+  <g transform="translate(62,240)">
+    <rect class="pill" width="104" height="30" rx="15"/><text x="52" y="20" text-anchor="middle" class="tag">scikit-learn</text>
+    <rect class="pill" x="116" width="74" height="30" rx="15"/><text x="153" y="20" text-anchor="middle" class="tag">ROC-AUC</text>
+    <rect class="pill" x="202" width="96" height="30" rx="15"/><text x="250" y="20" text-anchor="middle" class="tag">no leakage</text>
+    <rect class="pill" x="310" width="64" height="30" rx="15"/><text x="342" y="20" text-anchor="middle" class="tag">LaTeX</text>
+    <rect class="pill" x="386" width="130" height="30" rx="15"/><text x="451" y="20" text-anchor="middle" class="tag">reproducible</text>
+  </g>
+
+  <!-- right: animated ROC plot -->
+  <g transform="translate(800,40)">
+    <line class="grid" x1="0" y1="240" x2="320" y2="240"/>
+    <line class="grid" x1="0" y1="0" x2="0" y2="240"/>
+    <line class="grid" x1="80" y1="0" x2="80" y2="240" opacity=".35"/>
+    <line class="grid" x1="160" y1="0" x2="160" y2="240" opacity=".35"/>
+    <line class="grid" x1="240" y1="0" x2="240" y2="240" opacity=".35"/>
+    <line class="grid" x1="0" y1="60" x2="320" y2="60" opacity=".35"/>
+    <line class="grid" x1="0" y1="120" x2="320" y2="120" opacity=".35"/>
+    <line class="grid" x1="0" y1="180" x2="320" y2="180" opacity=".35"/>
+    <line class="diag" x1="0" y1="240" x2="320" y2="0"/>
+    <path class="auc" d="M0,240 C20,120 60,50 130,28 S260,4 320,0 L320,240 Z"/>
+    <path class="roc" d="M0,240 C20,120 60,50 130,28 S260,4 320,0"/>
+    <text x="160" y="262" text-anchor="middle" class="ax">false-positive rate</text>
+    <text x="-120" y="-10" transform="rotate(-90)" text-anchor="middle" class="ax">recall</text>
+
+    <!-- scatter of borrowers -->
+    <circle class="pt p0" cx="250" cy="200" r="5"/>
+    <circle class="pt p0 d1" cx="280" cy="175" r="5"/>
+    <circle class="pt p1 d2" cx="60" cy="40" r="5"/>
+    <circle class="pt p0 d3" cx="210" cy="215" r="5"/>
+    <circle class="pt p1 d4" cx="95" cy="70" r="5"/>
+  </g>
+</svg>

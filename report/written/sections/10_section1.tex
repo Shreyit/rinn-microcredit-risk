@@ -1,0 +1,75 @@
+\section{Section I --- Short-Answer Questions}
+\label{sec:one}
+
+\noindent\textbf{Questions answered:} \SectionIChoice. Each answer is at most 300 words; equations
+and tables are excluded from the count.
+
+% ------------------------------------------------------------------
+\subsection{Question 1 --- Linear classifiers and the perceptron}
+\wordlimit{300}
+Setting: a cooperative bank flags a loan as risky when $s = \vect{w}^\top\vect{x} + b \geq 0$.
+
+\question{1.1}{2 marks}{Why might a random linear classifier look acceptable on a handful of loans yet be unreliable? Name one thing you would do to judge it fairly.}
+\pending
+
+\question{1.2}{2 marks}{What does the perceptron do to $\vect{w}$ and $b$ on a misclassified loan, and why does this move the boundary helpfully?}
+\pending
+
+\question{1.3}{2 marks}{Describe a situation in which a perceptron would never stop updating, and explain why.}
+\pending
+
+% ------------------------------------------------------------------
+\subsection{Question 2 --- Probabilities, classes and thresholds}
+\wordlimit{300}
+Setting: logistic regression predicts the probability that a patient misses a follow-up visit.
+
+\question{2.1}{2 marks}{Distinguish a predicted probability from a predicted class, and explain the role of the classification threshold.}
+\pending
+
+\question{2.2}{2 marks}{Patients P ($\hat p = 0.51$) and Q ($\hat p = 0.97$) are both flagged at threshold $0.5$. Is it reasonable to treat them identically? Defend a position.}
+\pending
+
+\question{2.3}{2 marks}{Describe one setting for a threshold below $0.5$ and one for a threshold above $0.5$, with reasons.}
+\pending
+
+% ------------------------------------------------------------------
+\subsection{Question 3 --- Evaluation under class imbalance}
+\wordlimit{300}
+Setting: about 2 in 100 households are eligible but unregistered; a vendor claims ``98\,\% accuracy''.
+
+\question{3.1}{2 marks}{Why does 98\,\% accuracy not show the model is useful? Use a trivial classifier in your explanation.}
+\pending
+
+\question{3.2}{2 marks}{Which two metrics would you request instead, and which question does each answer in this scheme?}
+\pending
+
+\question{3.3}{2 marks}{Explain in plain language what a ROC-AUC of $0.5$ means.}
+\pending
+
+% ------------------------------------------------------------------
+\subsection{Question 4 --- KNN and decision trees}
+\wordlimit{300}
+Setting: predicting seed adoption from land size, distance to market, rainfall and schooling.
+
+\question{4.1}{2 marks}{If rainfall were recorded in metres instead of millimetres, what happens to KNN and decision-tree predictions, and why do they differ?}
+\pending
+
+\question{4.2}{2 marks}{How does overfitting show up in KNN (as $K$ changes) and in a decision tree (as depth changes)?}
+\pending
+
+\question{4.3}{2 marks}{For a panchayat committee, which model would you choose and what would you give up?}
+\pending
+
+% ------------------------------------------------------------------
+\subsection{Question 5 --- Margins and support vectors}
+\wordlimit{300}
+Setting: one feature $x$ (years of schooling); class $-1$ at $x\in\{2,5\}$, class $+1$ at $x\in\{8,10\}$; hard margin.
+
+\question{5.1}{2 marks}{State the maximum-margin boundary, the total margin width, and the support vectors.}
+\pending
+
+\question{5.2}{2 marks}{A class $-1$ point is added at $x=7$. Give the new boundary and support vectors. What does this show?}
+\pending
+
+\question{5.3}{2 marks}{Instead, a class $-1$ point is added at $x=9$ (non-separable). How do small and large $C$ treat it, and which do you prefer?}
+\pending

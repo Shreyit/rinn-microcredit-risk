@@ -1,0 +1,111 @@
+\section{Section II --- Hand Exercises}
+\label{sec:two}
+
+\noindent All six exercises are answered. Working is shown as \emph{formula $\to$ substitution $\to$ result};
+final values are given to four decimal places unless exact. Every numerical result was
+cross-checked with \texttt{scripts/verify\_hand\_calcs.py}.
+
+% ------------------------------------------------------------------
+\subsection{Exercise 1 --- Dot product and linear score}
+Given $\vect{w} = (1.5,\,-0.5,\,2)$, $b=-2$; predict class 1 (``likely to default'') if $s\geq 0$.
+
+\begin{table}[H]\centering\small
+\begin{tabular}{lccc}\toprule
+Loan & $x_1$ (INR 10k) & $x_2$ (INR k/month) & $x_3$ (km)\\\midrule
+A & 3 & 4 & 2\\ B & 1 & 5 & 0\\ C & 2 & 6 & 1\\\bottomrule
+\end{tabular}\end{table}
+
+\question{E1.1}{1.5 marks}{Compute the score $s$ for A, B and C.}
+\pending
+\question{E1.2}{1 mark}{State the predicted class for each loan.}
+\pending
+\question{E1.3}{0.5 marks}{Which loan lies exactly on the decision boundary, and how do you know?}
+\pending
+
+% ------------------------------------------------------------------
+\subsection{Exercise 2 --- A perceptron update}
+True labels A $=0$, B $=1$, C $=1$; learning rate $\eta = 0.5$;
+\[
+  \vect{w} \leftarrow \vect{w} + \eta\,(y-\hat y)\,\vect{x}, \qquad b \leftarrow b + \eta\,(y-\hat y).
+\]
+
+\question{E2.1}{1 mark}{Which of A, B, C are misclassified by the starting $\vect{w}$ and $b$?}
+\pending
+\question{E2.2}{1.5 marks}{Process only loan A (a single update). Give the new $\vect{w}$ and $b$.}
+\pending
+\question{E2.3}{1.5 marks}{Recompute scores and classes. What do you observe about a single update and about convergence?}
+\pending
+
+% ------------------------------------------------------------------
+\subsection{Exercise 3 --- From score to probability}
+$z = -2 + 1.5\,x_1 - 0.5\,x_2$, \quad $p = \sigmoid(z) = \dfrac{1}{1+e^{-z}}$;\quad
+given $e^{-1}=0.3679$, $e^{2}=7.3891$, $e^{0}=1$.
+
+\begin{table}[H]\centering\small
+\begin{tabular}{lcc}\toprule
+Borrower & $x_1$ (missed repayments) & $x_2$ (years in savings group)\\\midrule
+P & 2 & 2\\ Q & 2 & 0\\ R & 0 & 0\\\bottomrule
+\end{tabular}\end{table}
+
+\question{E3.1}{2 marks}{Compute $z$ and $p$ for P, Q and R.}
+\pending
+\question{E3.2}{1 mark}{Give the predicted class of each borrower at thresholds $0.5$ and $0.7$.}
+\pending
+\question{E3.3}{1 mark}{Why does $z=0$ correspond to $p=0.5$, and what does $z=0$ mean for the decision boundary?}
+\pending
+
+% ------------------------------------------------------------------
+\subsection{Exercise 4 --- Metrics from a confusion matrix}
+\begin{table}[H]\centering\small
+\begin{tabular}{lcc}\toprule
+ & Predicted default & Predicted repaid\\\midrule
+Actually defaulted & TP $=24$ & FN $=16$\\
+Actually repaid    & FP $=12$ & TN $=148$\\\bottomrule
+\end{tabular}\end{table}
+
+\question{E4.1}{1 mark}{Accuracy and specificity.}
+\pending
+\question{E4.2}{1 mark}{Precision and recall.}
+\pending
+\question{E4.3}{1 mark}{F1-score.}
+\pending
+\question{E4.4}{2 marks}{Accuracy of an always-``repaid'' baseline; compare and interpret.}
+\pending
+
+% ------------------------------------------------------------------
+\subsection{Exercise 5 --- KNN prediction}
+New applicant $(x_1,x_2) = (10,6)$; Euclidean distance; majority vote.
+
+\begin{table}[H]\centering\small
+\begin{tabular}{cccc}\toprule
+Borrower & $x_1$ (income, INR k) & $x_2$ (distance, km) & Label\\\midrule
+1 & 10 & 2 & 0\\ 2 & 12 & 5 & 0\\ 3 & 8 & 9 & 1\\
+4 & 14 & 3 & 0\\ 5 & 9 & 9 & 1\\ 6 & 6 & 4 & 1\\\bottomrule
+\end{tabular}\end{table}
+
+\question{E5.1}{2 marks}{Distance from the new applicant to each of the six borrowers.}
+\pending
+\question{E5.2}{1 mark}{Predicted class for $K=1$, $K=3$ and $K=5$.}
+\pending
+\question{E5.3}{1 mark}{What goes wrong if $x_2$ is in metres and $x_1$ in INR thousands; how does standardising help?}
+\pending
+
+% ------------------------------------------------------------------
+\subsection{Exercise 6 --- Naive Bayes}
+Ten past loans with binary features SG (savings-group member) and MP (missed an earlier payment);
+new applicant SG $=$ No, MP $=$ Yes; no smoothing.
+
+\begin{table}[H]\centering\small
+\begin{tabular}{cccc}\toprule
+Loan & SG & MP & Default\\\midrule
+1 & No & Yes & Yes\\ 2 & No & Yes & Yes\\ 3 & No & No & Yes\\ 4 & Yes & Yes & Yes\\
+5 & Yes & No & No\\ 6 & Yes & No & No\\ 7 & Yes & Yes & No\\ 8 & No & No & No\\
+9 & Yes & No & No\\ 10 & No & No & No\\\bottomrule
+\end{tabular}\end{table}
+
+\question{E6.1}{1.5 marks}{Prior probabilities and the class-conditional probabilities needed.}
+\pending
+\question{E6.2}{1.5 marks}{Normalised posterior probability of default, and the predicted class.}
+\pending
+\question{E6.3}{1 mark}{State the independence assumption and one reason it may not hold here.}
+\pending

@@ -1,0 +1,21 @@
+# environment
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.ipynb_checkpoints/
+.DS_Store
+
+# course material & personal submission artefacts — never publish
+assignment/
+submission/
+assignment_config.json
+
+# LaTeX build products
+report/written/build/
+*.aux
+*.log
+*.out
+*.toc
+*.bbl
+*.blg

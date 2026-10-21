@@ -1,0 +1,43 @@
+% Title page — the brief requires Version ID, roll number and AI-use declaration on page 1.
+\begin{titlepage}
+\thispagestyle{plain}
+\centering
+{\large\scshape \Institution\par}
+{\normalsize \School\par}
+\vspace{0.6cm}
+{\color{rinnblue}\rule{\linewidth}{1.2pt}\par}
+\vspace{0.5cm}
+{\Huge\bfseries\color{rinnblue} \CourseLong\par}
+\vspace{0.3cm}
+{\Large Graded Assignment --- Written Component\par}
+\vspace{0.15cm}
+{\large Sections I (Short Answers) and II (Hand Exercises)\par}
+\vspace{0.5cm}
+{\color{rinnblue}\rule{\linewidth}{1.2pt}\par}
+\vspace{0.9cm}
+
+\renewcommand{\arraystretch}{1.35}
+\begin{tabularx}{0.86\linewidth}{>{\bfseries}l X}
+\toprule
+Student          & \StudentName \\
+Roll number      & \texttt{\RollNo} \\
+Version ID       & \texttt{\VersionID} \\
+Programme        & \Programme \\
+Course instructor& \Instructor \\
+Date of submission & \SubmissionDate \\
+Section I answered & \SectionIChoice \\
+\bottomrule
+\end{tabularx}
+
+\vspace{0.9cm}
+\begin{minipage}{0.86\linewidth}
+\small
+\textbf{\color{rinnblue}AI-use declaration.}\par
+\AIDeclaration
+\end{minipage}
+
+\vfill
+{\small\color{rinngrey}
+Word limits: equations, numerical working and tables are excluded, as specified in the brief.\par}
+\end{titlepage}
+\setcounter{page}{2}

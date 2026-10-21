@@ -1,0 +1,35 @@
+% ============================================================
+%  Rinn — Written Report (Sections I & II)
+%  Build:  make report   (pdflatex → bibtex → pdflatex ×2)
+% ============================================================
+\documentclass[11pt,a4paper,oneside]{article}
+\usepackage{rinn-report}
+\input{metadata}
+
+\hypersetup{
+  pdftitle  = {\CourseLong{} --- Written Assignment (Sections I and II)},
+  pdfauthor = {\StudentName{} (\RollNo)},
+}
+
+\begin{document}
+
+\input{sections/00_titlepage}
+\input{sections/01_declaration}
+
+\tableofcontents
+\clearpage
+
+\input{sections/10_section1}
+\clearpage
+\input{sections/20_section2}
+
+\clearpage
+\phantomsection
+\addcontentsline{toc}{section}{References}
+\nocite{*}
+\bibliography{references}
+
+\appendix
+\input{sections/90_appendix}
+
+\end{document}
