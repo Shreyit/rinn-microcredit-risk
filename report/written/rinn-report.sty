@@ -1,5 +1,5 @@
-% rinn-report.sty — house style for the Rinn written report
-% A4 · 11pt · Latin Modern · author–year citations · British English
+% rinn-report.sty: house style for the Rinn written report
+% A4, 11pt, Latin Modern, author-year citations, British English
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesPackage{rinn-report}[2026/10/21 Rinn report style]
 
@@ -89,10 +89,10 @@
 % \answerhead{300} → word-limit note for a whole question
 \newcommand{\wordlimit}[1]{\textcolor{rinngrey}{\small\itshape Word limit: $\leq #1$ words (equations and tables excluded).}\par}
 
-% placeholder for unfinished parts — the build script refuses to package a PDF containing it
+% placeholder for unfinished parts. The build script refuses to package a PDF containing it
 \newcommand{\pending}[1][Answer to be written.]{%
   \par\noindent\fcolorbox{rinnaccent}{white}{\parbox{\dimexpr\linewidth-2\fboxsep-2\fboxrule\relax}{%
-    \small\color{rinnaccent}\textbf{PENDING} --- #1}}\par}
+    \small\color{rinnaccent}\textbf{PENDING:} #1}}\par}
 
 % final-answer highlight
 \newcommand{\finalans}[1]{\boxed{#1}}

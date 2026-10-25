@@ -1,45 +1,103 @@
-\section{Section II --- Hand Exercises}
+\section{Section II: Hand Exercises}
 \label{sec:two}
 
-\noindent All six exercises are answered. Working is shown as \emph{formula $\to$ substitution $\to$ result};
-final values are given to four decimal places unless exact. Every numerical result was
-cross-checked with \texttt{scripts/verify\_hand\_calcs.py}.
+\noindent All six exercises are answered. Working is shown as \emph{formula $\to$ substitution $\to$ result},
+and final values are given to four decimal places unless exact. Every numerical result was
+cross-checked in Python with \texttt{scripts/verify\_hand\_calcs.py}.
 
 % ------------------------------------------------------------------
-\subsection{Exercise 1 --- Dot product and linear score}
-Given $\vect{w} = (1.5,\,-0.5,\,2)$, $b=-2$; predict class 1 (``likely to default'') if $s\geq 0$.
+\subsection{Exercise 1: Dot product and linear score}
+Given $\vect{w} = (1.5,\,-0.5,\,2)$ and $b=-2$. Predict class 1 (``likely to default'') if $s\geq 0$, otherwise class 0.
 
 \begin{table}[H]\centering\small
 \begin{tabular}{lccc}\toprule
-Loan & $x_1$ (INR 10k) & $x_2$ (INR k/month) & $x_3$ (km)\\\midrule
+Loan & $x_1$ (loan, INR ten-thousands) & $x_2$ (income, INR thousands) & $x_3$ (distance, km)\\\midrule
 A & 3 & 4 & 2\\ B & 1 & 5 & 0\\ C & 2 & 6 & 1\\\bottomrule
 \end{tabular}\end{table}
 
 \question{E1.1}{1.5 marks}{Compute the score $s$ for A, B and C.}
-\pending
+Formula: $s = \vect{w}\cdot\vect{x} + b = w_1x_1 + w_2x_2 + w_3x_3 + b$.
+\begin{align*}
+s_A &= (1.5)(3) + (-0.5)(4) + (2)(2) - 2 = 4.5 - 2 + 4 - 2 = \finalans{4.5}\\
+s_B &= (1.5)(1) + (-0.5)(5) + (2)(0) - 2 = 1.5 - 2.5 + 0 - 2 = \finalans{-3}\\
+s_C &= (1.5)(2) + (-0.5)(6) + (2)(1) - 2 = 3 - 3 + 2 - 2 = \finalans{0}
+\end{align*}
+
 \question{E1.2}{1 mark}{State the predicted class for each loan.}
-\pending
+Rule: $\hat y = 1$ if $s \geq 0$, otherwise $\hat y = 0$.
+
+\begin{table}[H]\centering\small
+\begin{tabular}{lccl}\toprule
+Loan & $s$ & Check & Predicted class\\\midrule
+A & $4.5$ & $4.5 \geq 0$ & $\hat y_A = 1$ (likely to default)\\
+B & $-3$ & $-3 < 0$ & $\hat y_B = 0$ (repaid)\\
+C & $0$ & $0 \geq 0$ & $\hat y_C = 1$ (likely to default)\\\bottomrule
+\end{tabular}\end{table}
+
 \question{E1.3}{0.5 marks}{Which loan lies exactly on the decision boundary, and how do you know?}
-\pending
+\textbf{Loan C.} The decision boundary is the set of points where $\vect{w}\cdot\vect{x}+b = 0$,
+and loan C has $s_C = 0$ exactly. It is classified as 1 only because the convention uses
+$s \geq 0$.
 
 % ------------------------------------------------------------------
-\subsection{Exercise 2 --- A perceptron update}
-True labels A $=0$, B $=1$, C $=1$; learning rate $\eta = 0.5$;
+\subsection{Exercise 2: A perceptron update}
+Start from $\vect{w}^{(0)} = (1.5,\,-0.5,\,2)$ and $b^{(0)} = -2$. True labels: A $=0$, B $=1$, C $=1$. Learning rate $\eta = 0.5$, with
 \[
   \vect{w} \leftarrow \vect{w} + \eta\,(y-\hat y)\,\vect{x}, \qquad b \leftarrow b + \eta\,(y-\hat y).
 \]
 
 \question{E2.1}{1 mark}{Which of A, B, C are misclassified by the starting $\vect{w}$ and $b$?}
-\pending
+Using the predictions from E1.2:
+
+\begin{table}[H]\centering\small
+\begin{tabular}{lccl}\toprule
+Loan & True $y$ & Predicted $\hat y$ & Result\\\midrule
+A & 0 & 1 & misclassified (false positive)\\
+B & 1 & 0 & misclassified (false negative)\\
+C & 1 & 1 & correct\\\bottomrule
+\end{tabular}\end{table}
+
+\finalans{\text{Loans A and B are misclassified.}}
+
 \question{E2.2}{1.5 marks}{Process only loan A (a single update). Give the new $\vect{w}$ and $b$.}
-\pending
+For loan A: $\vect{x}_A = (3,\,4,\,2)$, $y_A = 0$, $\hat y_A = 1$, so $y_A - \hat y_A = 0 - 1 = -1$ and
+$\eta\,(y_A - \hat y_A) = 0.5 \times (-1) = -0.5$.
+\begin{align*}
+\vect{w}^{(1)} &= \vect{w}^{(0)} + \eta\,(y_A-\hat y_A)\,\vect{x}_A
+               = (1.5,\,-0.5,\,2) - 0.5\,(3,\,4,\,2)\\
+               &= (1.5,\,-0.5,\,2) - (1.5,\,2,\,1) = \finalans{(0,\,-2.5,\,1)}\\[4pt]
+b^{(1)} &= b^{(0)} + \eta\,(y_A-\hat y_A) = -2 + (-0.5) = \finalans{-2.5}
+\end{align*}
+
 \question{E2.3}{1.5 marks}{Recompute scores and classes. What do you observe about a single update and about convergence?}
-\pending
+With $\vect{w}^{(1)} = (0,\,-2.5,\,1)$ and $b^{(1)} = -2.5$:
+\begin{align*}
+s_A^{(1)} &= (0)(3) + (-2.5)(4) + (1)(2) - 2.5 = 0 - 10 + 2 - 2.5 = -10.5\\
+s_B^{(1)} &= (0)(1) + (-2.5)(5) + (1)(0) - 2.5 = 0 - 12.5 + 0 - 2.5 = -15\\
+s_C^{(1)} &= (0)(2) + (-2.5)(6) + (1)(1) - 2.5 = 0 - 15 + 1 - 2.5 = -16.5
+\end{align*}
+
+\begin{table}[H]\centering\small
+\begin{tabular}{lcccccl}\toprule
+Loan & True $y$ & $s^{(0)}$ & $\hat y^{(0)}$ & $s^{(1)}$ & $\hat y^{(1)}$ & Change\\\midrule
+A & 0 & $4.5$ & 1 & $-10.5$ & 0 & now correct\\
+B & 1 & $-3$  & 0 & $-15$   & 0 & still wrong\\
+C & 1 & $0$   & 1 & $-16.5$ & 0 & now wrong\\\bottomrule
+\end{tabular}\end{table}
+
+\textbf{Observation.} The update fixed loan A, but loan B is still wrong and loan C, which
+was correct before, is now wrong. All three scores fell sharply because the update cut
+$w_2$ from $-0.5$ to $-2.5$ and lowered $b$.
+
+\textbf{Lesson.} One perceptron update only looks at one loan. It moves the boundary to help
+that loan and can make other loans worse, so the number of errors can go up after an update.
+The perceptron needs many passes over all the loans. It is guaranteed to stop only if the
+data are linearly separable, and even then the path to that point is not smooth.
 
 % ------------------------------------------------------------------
-\subsection{Exercise 3 --- From score to probability}
-$z = -2 + 1.5\,x_1 - 0.5\,x_2$, \quad $p = \sigmoid(z) = \dfrac{1}{1+e^{-z}}$;\quad
-given $e^{-1}=0.3679$, $e^{2}=7.3891$, $e^{0}=1$.
+\subsection{Exercise 3: From score to probability}
+Log-odds $z = -2 + 1.5\,x_1 - 0.5\,x_2$ and probability $p = \sigmoid(z) = \dfrac{1}{1+e^{-z}}$.
+Given $e^{-1}=0.3679$, $e^{2}=7.3891$ and $e^{0}=1$.
 
 \begin{table}[H]\centering\small
 \begin{tabular}{lcc}\toprule
@@ -48,52 +106,137 @@ P & 2 & 2\\ Q & 2 & 0\\ R & 0 & 0\\\bottomrule
 \end{tabular}\end{table}
 
 \question{E3.1}{2 marks}{Compute $z$ and $p$ for P, Q and R.}
-\pending
+\begin{align*}
+z_P &= -2 + 1.5(2) - 0.5(2) = -2 + 3 - 1 = 0,
+  & p_P &= \frac{1}{1+e^{0}} = \frac{1}{1+1} = \finalans{0.5000}\\[4pt]
+z_Q &= -2 + 1.5(2) - 0.5(0) = -2 + 3 - 0 = 1,
+  & p_Q &= \frac{1}{1+e^{-1}} = \frac{1}{1+0.3679} = \frac{1}{1.3679} = \finalans{0.7311}\\[4pt]
+z_R &= -2 + 1.5(0) - 0.5(0) = -2,
+  & p_R &= \frac{1}{1+e^{2}} = \frac{1}{1+7.3891} = \frac{1}{8.3891} = \finalans{0.1192}
+\end{align*}
+
 \question{E3.2}{1 mark}{Give the predicted class of each borrower at thresholds $0.5$ and $0.7$.}
-\pending
+Rule: predict default (1) if $p \geq t$, otherwise 0.
+
+\begin{table}[H]\centering\small
+\begin{tabular}{lccc}\toprule
+Borrower & $p$ & $t = 0.5$ & $t = 0.7$\\\midrule
+P & $0.5000$ & 1 \quad ($0.5000 \geq 0.5$) & 0 \quad ($0.5000 < 0.7$)\\
+Q & $0.7311$ & 1 \quad ($0.7311 \geq 0.5$) & 1 \quad ($0.7311 \geq 0.7$)\\
+R & $0.1192$ & 0 \quad ($0.1192 < 0.5$)    & 0 \quad ($0.1192 < 0.7$)\\\bottomrule
+\end{tabular}\end{table}
+
+Raising the threshold from 0.5 to 0.7 changes only P's prediction, from default to not default.
+
 \question{E3.3}{1 mark}{Why does $z=0$ correspond to $p=0.5$, and what does $z=0$ mean for the decision boundary?}
-\pending
+\textbf{Why $p = 0.5$:} substituting $z = 0$ gives
+\[
+  p = \frac{1}{1+e^{-0}} = \frac{1}{1+1} = 0.5 .
+\]
+Since $z$ is the log-odds, $z = \ln\!\big(p/(1-p)\big) = 0$ means the odds are $1$, so default
+and repayment are equally likely.
+
+\textbf{Meaning for the boundary:} with the usual threshold 0.5, the points where $z = 0$ form
+the decision boundary:
+\[
+  -2 + 1.5\,x_1 - 0.5\,x_2 = 0 .
+\]
+This is a straight line in the $(x_1, x_2)$ plane. Borrowers with $z > 0$ are predicted to
+default and those with $z < 0$ are not. Borrower P has $z_P = 0$, so P lies exactly on this
+boundary.
 
 % ------------------------------------------------------------------
-\subsection{Exercise 4 --- Metrics from a confusion matrix}
+\subsection{Exercise 4: Metrics from a confusion matrix}
 \begin{table}[H]\centering\small
 \begin{tabular}{lcc}\toprule
  & Predicted default & Predicted repaid\\\midrule
 Actually defaulted & TP $=24$ & FN $=16$\\
 Actually repaid    & FP $=12$ & TN $=148$\\\bottomrule
 \end{tabular}\end{table}
+Total $= 24 + 16 + 12 + 148 = 200$. Actual defaults $= 24 + 16 = 40$, actual repaid $= 12 + 148 = 160$.
 
 \question{E4.1}{1 mark}{Accuracy and specificity.}
-\pending
+\begin{align*}
+\text{Accuracy}    &= \frac{\text{TP}+\text{TN}}{\text{Total}} = \frac{24+148}{200} = \frac{172}{200} = \finalans{0.8600}\\[4pt]
+\text{Specificity} &= \frac{\text{TN}}{\text{TN}+\text{FP}} = \frac{148}{148+12} = \frac{148}{160} = \finalans{0.9250}
+\end{align*}
+
 \question{E4.2}{1 mark}{Precision and recall.}
-\pending
+\begin{align*}
+\text{Precision} &= \frac{\text{TP}}{\text{TP}+\text{FP}} = \frac{24}{24+12} = \frac{24}{36} = \finalans{0.6667}\\[4pt]
+\text{Recall}    &= \frac{\text{TP}}{\text{TP}+\text{FN}} = \frac{24}{24+16} = \frac{24}{40} = \finalans{0.6000}
+\end{align*}
+
 \question{E4.3}{1 mark}{F1-score.}
-\pending
-\question{E4.4}{2 marks}{Accuracy of an always-``repaid'' baseline; compare and interpret.}
-\pending
+\[
+  F_1 = \frac{2 \times \text{Precision} \times \text{Recall}}{\text{Precision} + \text{Recall}}
+      = \frac{2 \times 0.6667 \times 0.6000}{0.6667 + 0.6000}
+      = \frac{0.8000}{1.2667} = \finalans{0.6316}
+\]
+Check with counts: $F_1 = \dfrac{2\,\text{TP}}{2\,\text{TP}+\text{FP}+\text{FN}} = \dfrac{48}{48+12+16} = \dfrac{48}{76} = 0.6316$.
+
+\question{E4.4}{2 marks}{Accuracy of an always-``repaid'' baseline. Compare and interpret.}
+The baseline predicts ``repaid'' for all 200 applicants, so it is right for the 160 who repaid:
+\[
+  \text{Baseline accuracy} = \frac{160}{200} = \finalans{0.8000},
+  \qquad \text{Baseline recall} = \frac{0}{40} = 0 .
+\]
+The model's accuracy is $0.8600$, only $0.06$ higher than the baseline.
+
+\textbf{What the comparison tells us:} the model does better than simply guessing the majority
+class, so it has learned something from the features.
+
+\textbf{What it does not tell us:} accuracy hides which errors are made. The baseline catches
+none of the 40 defaulters, while the model catches 24 of them (recall 0.6000). Accuracy also
+does not show the 16 defaulters the model still misses, which are the costly errors for a lender.
 
 % ------------------------------------------------------------------
-\subsection{Exercise 5 --- KNN prediction}
-New applicant $(x_1,x_2) = (10,6)$; Euclidean distance; majority vote.
+\subsection{Exercise 5: KNN prediction}
+New applicant $(x_1,x_2) = (10,6)$. Euclidean distance and majority vote.
+
+\question{E5.1}{2 marks}{Distance from the new applicant to each of the six borrowers.}
+Formula: $d = \sqrt{(x_1 - 10)^2 + (x_2 - 6)^2}$.
+
+\begin{table}[H]\centering\small
+\begin{tabular}{cccccc}\toprule
+Borrower & $(x_1, x_2)$ & Label & Substitution & Exact & Distance\\\midrule
+1 & $(10, 2)$ & 0 & $\sqrt{(10-10)^2 + (2-6)^2} = \sqrt{0+16}$ & $\sqrt{16}$ & $4.0000$\\
+2 & $(12, 5)$ & 0 & $\sqrt{(12-10)^2 + (5-6)^2} = \sqrt{4+1}$  & $\sqrt{5}$  & $2.2361$\\
+3 & $(8, 9)$  & 1 & $\sqrt{(8-10)^2 + (9-6)^2}  = \sqrt{4+9}$  & $\sqrt{13}$ & $3.6056$\\
+4 & $(14, 3)$ & 0 & $\sqrt{(14-10)^2 + (3-6)^2} = \sqrt{16+9}$ & $\sqrt{25}$ & $5.0000$\\
+5 & $(9, 9)$  & 1 & $\sqrt{(9-10)^2 + (9-6)^2}  = \sqrt{1+9}$  & $\sqrt{10}$ & $3.1623$\\
+6 & $(6, 4)$  & 1 & $\sqrt{(6-10)^2 + (4-6)^2}  = \sqrt{16+4}$ & $\sqrt{20}$ & $4.4721$\\\bottomrule
+\end{tabular}\end{table}
+
+\question{E5.2}{1 mark}{Predicted class for $K=1$, $K=3$ and $K=5$.}
+Neighbours ordered by distance:
 
 \begin{table}[H]\centering\small
 \begin{tabular}{cccc}\toprule
-Borrower & $x_1$ (income, INR k) & $x_2$ (distance, km) & Label\\\midrule
-1 & 10 & 2 & 0\\ 2 & 12 & 5 & 0\\ 3 & 8 & 9 & 1\\
-4 & 14 & 3 & 0\\ 5 & 9 & 9 & 1\\ 6 & 6 & 4 & 1\\\bottomrule
+Rank & Borrower & Distance & Label\\\midrule
+1 & 2 & 2.2361 & 0\\ 2 & 5 & 3.1623 & 1\\ 3 & 3 & 3.6056 & 1\\
+4 & 1 & 4.0000 & 0\\ 5 & 6 & 4.4721 & 1\\ 6 & 4 & 5.0000 & 0\\\bottomrule
 \end{tabular}\end{table}
 
-\question{E5.1}{2 marks}{Distance from the new applicant to each of the six borrowers.}
-\pending
-\question{E5.2}{1 mark}{Predicted class for $K=1$, $K=3$ and $K=5$.}
-\pending
-\question{E5.3}{1 mark}{What goes wrong if $x_2$ is in metres and $x_1$ in INR thousands; how does standardising help?}
-\pending
+\begin{table}[H]\centering\small
+\begin{tabular}{cllc}\toprule
+$K$ & Neighbours & Votes & Prediction\\\midrule
+1 & 2 & one vote for 0 & \textbf{0} (repaid)\\
+3 & 2, 5, 3 & two for 1, one for 0 & \textbf{1} (default)\\
+5 & 2, 5, 3, 1, 6 & three for 1, two for 0 & \textbf{1} (default)\\\bottomrule
+\end{tabular}\end{table}
+
+\question{E5.3}{1 mark}{What goes wrong if $x_2$ is in metres and $x_1$ in INR thousands? How does standardising help?}
+In metres, a distance gap of 1 km becomes 1000, so its squared difference ($10^6$) swamps
+income gaps of a few thousand rupees (squared differences around 4 to 16), and KNN would pick
+neighbours almost only by distance to the branch. Standardising each feature,
+$z = (x-\mu)/\sigma$, puts both on the same scale with mean 0 and standard deviation 1, so
+income and distance count fairly in the distance.
 
 % ------------------------------------------------------------------
-\subsection{Exercise 6 --- Naive Bayes}
-Ten past loans with binary features SG (savings-group member) and MP (missed an earlier payment);
-new applicant SG $=$ No, MP $=$ Yes; no smoothing.
+\subsection{Exercise 6: Naive Bayes}
+Ten past loans with yes/no features SG (savings-group member) and MP (missed an earlier payment).
+New applicant: SG $=$ No and MP $=$ Yes. No smoothing.
 
 \begin{table}[H]\centering\small
 \begin{tabular}{cccc}\toprule
@@ -104,8 +247,40 @@ Loan & SG & MP & Default\\\midrule
 \end{tabular}\end{table}
 
 \question{E6.1}{1.5 marks}{Prior probabilities and the class-conditional probabilities needed.}
-\pending
+\textbf{Priors.} Default $=$ Yes for loans 1 to 4 (4 loans) and Default $=$ No for loans 5 to 10 (6 loans):
+\[
+  P(\text{Yes}) = \frac{4}{10} = 0.4000, \qquad P(\text{No}) = \frac{6}{10} = 0.6000 .
+\]
+\textbf{Class-conditional probabilities.}
+
+\begin{table}[H]\centering\small
+\begin{tabular}{lcl}\toprule
+Probability & Value & Loans counted\\\midrule
+$P(\text{SG}=\text{No} \mid \text{Yes})$ & $3/4 = 0.7500$ & 1, 2, 3 out of 1 to 4\\
+$P(\text{MP}=\text{Yes} \mid \text{Yes})$ & $3/4 = 0.7500$ & 1, 2, 4 out of 1 to 4\\
+$P(\text{SG}=\text{No} \mid \text{No})$ & $2/6 = 0.3333$ & 8, 10 out of 5 to 10\\
+$P(\text{MP}=\text{Yes} \mid \text{No})$ & $1/6 = 0.1667$ & 7 out of 5 to 10\\\bottomrule
+\end{tabular}\end{table}
+
 \question{E6.2}{1.5 marks}{Normalised posterior probability of default, and the predicted class.}
-\pending
+Let $X = (\text{SG}=\text{No},\ \text{MP}=\text{Yes})$. Unnormalised scores (prior $\times$ likelihoods):
+\begin{align*}
+P(\text{Yes})\,P(X \mid \text{Yes}) &= 0.4 \times \tfrac{3}{4} \times \tfrac{3}{4} = 0.4 \times 0.5625 = 0.2250\\[2pt]
+P(\text{No})\,P(X \mid \text{No})   &= 0.6 \times \tfrac{2}{6} \times \tfrac{1}{6} = 0.6 \times 0.0556 = 0.0333
+\end{align*}
+Normalising by their sum, $0.2250 + 0.0333 = 0.2583$:
+\begin{align*}
+P(\text{Yes} \mid X) &= \frac{0.2250}{0.2583} = \finalans{0.8710}\\[4pt]
+P(\text{No} \mid X)  &= \frac{0.0333}{0.2583} = 0.1290
+\end{align*}
+Since $0.8710 > 0.5$, the predicted class is \textbf{Default $=$ Yes}.
+
 \question{E6.3}{1 mark}{State the independence assumption and one reason it may not hold here.}
-\pending
+\textbf{Assumption:} given the class, the features are independent:
+\[
+  P(\text{SG}, \text{MP} \mid \text{Default}) = P(\text{SG} \mid \text{Default}) \times P(\text{MP} \mid \text{Default}).
+\]
+\textbf{Why it may not hold:} savings-group membership and missed payments are likely to be
+linked. Group members get peer support, regular saving habits and reminders from the group, so
+they are less likely to miss a payment. Knowing SG then tells us something about MP even within
+the same class, which breaks the assumption.

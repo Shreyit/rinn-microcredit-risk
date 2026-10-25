@@ -1,75 +1,221 @@
-\section{Section I --- Short-Answer Questions}
+\section{Section I: Short-Answer Questions}
 \label{sec:one}
 
-\noindent\textbf{Questions answered:} \SectionIChoice. Each answer is at most 300 words; equations
+\noindent\textbf{Questions answered:} \SectionIChoice. Each answer is at most 300 words. Equations
 and tables are excluded from the count.
 
 % ------------------------------------------------------------------
-\subsection{Question 1 --- Linear classifiers and the perceptron}
+\subsection{Question 1: Linear classifiers and the perceptron}
 \wordlimit{300}
-Setting: a cooperative bank flags a loan as risky when $s = \vect{w}^\top\vect{x} + b \geq 0$.
+Setting: a cooperative bank flags a loan as risky when $s = \vect{w}\cdot\vect{x} + b \geq 0$.
 
 \question{1.1}{2 marks}{Why might a random linear classifier look acceptable on a handful of loans yet be unreliable? Name one thing you would do to judge it fairly.}
-\pending
+A random $\vect{w}$ and $b$ have learned nothing from the data, but on a handful of loans they
+can look good by luck. With few points, a random boundary may happen to put most of them on the
+correct side. If most sampled loans are safe, a boundary that calls almost everything safe also
+scores a high accuracy. Such results come from chance, not from a real pattern, so they will
+not repeat on new loans.
+
+To judge it fairly, I would test it on a large held-out set of loans that were not used to
+choose $\vect{w}$ and $b$, compare it with a majority-class baseline, and report recall and
+precision, not only accuracy.
 
 \question{1.2}{2 marks}{What does the perceptron do to $\vect{w}$ and $b$ on a misclassified loan, and why does this move the boundary helpfully?}
-\pending
+The perceptron changes $\vect{w}$ and $b$ only when it gets a loan wrong. With labels
+$y,\hat y \in \{0,1\}$ and learning rate $\eta>0$:
+\[
+  \vect{w} \leftarrow \vect{w} + \eta\,(y-\hat y)\,\vect{x}, \qquad b \leftarrow b + \eta\,(y-\hat y).
+\]
+If a risky loan ($y=1$) is wrongly called safe ($\hat y=0$), it adds $\eta\vect{x}$ to
+$\vect{w}$ and $\eta$ to $b$. If a safe loan is wrongly called risky, it subtracts them.
+
+This helps because the new score of that loan moves towards the correct side:
+\[
+  s_{\text{new}} = (\vect{w} + \eta\vect{x})\cdot\vect{x} + (b+\eta)
+               = s + \eta\left(\lVert\vect{x}\rVert^2 + 1\right).
+\]
+Since $\lVert\vect{x}\rVert^2 + 1 > 0$, a missed risky loan's score always rises and a wrongly
+flagged safe loan's score always falls. The boundary $\vect{w}\cdot\vect{x}+b=0$ shifts
+towards putting this loan on its correct side.
 
 \question{1.3}{2 marks}{Describe a situation in which a perceptron would never stop updating, and explain why.}
-\pending
+This happens when the training data are \emph{not linearly separable}: no straight boundary can
+put every risky loan on one side and every safe loan on the other. For example, two loans with
+identical features where one defaulted and one was repaid.
+
+The perceptron stops only after a full pass with zero mistakes. If the data cannot be separated,
+some loan is always misclassified, so every pass triggers another update and the weights keep
+moving for ever. In practice we cap the number of passes, or use a method that accepts errors,
+such as logistic regression or a soft-margin SVM.
 
 % ------------------------------------------------------------------
-\subsection{Question 2 --- Probabilities, classes and thresholds}
+\subsection{Question 2: Probabilities, classes and thresholds}
 \wordlimit{300}
 Setting: logistic regression predicts the probability that a patient misses a follow-up visit.
 
 \question{2.1}{2 marks}{Distinguish a predicted probability from a predicted class, and explain the role of the classification threshold.}
-\pending
+The \emph{predicted probability} $\hat p$ is a number between 0 and 1 giving the model's
+estimate of how likely the patient is to miss the visit, for example $\hat p = 0.73$. It comes
+from the sigmoid function, $\hat p = 1/(1+e^{-z})$.
+
+The \emph{predicted class} $\hat y$ is a yes or no decision: $1$ means ``will miss'' and $0$
+means ``will attend''.
+
+The threshold $t$ turns the probability into the class:
+\[
+  \hat y =
+  \begin{cases}
+    1 & \text{if } \hat p \geq t,\\
+    0 & \text{if } \hat p < t.
+  \end{cases}
+\]
+The threshold is a policy choice, not learned from the data. A lower $t$ flags more patients,
+missing fewer real cases but raising more false alarms. A higher $t$ flags fewer.
 
 \question{2.2}{2 marks}{Patients P ($\hat p = 0.51$) and Q ($\hat p = 0.97$) are both flagged at threshold $0.5$. Is it reasonable to treat them identically? Defend a position.}
-\pending
+\textbf{Position: no, they should not be treated identically.}
+
+Both cross the threshold, but their risks differ greatly. About half of patients like P would
+miss the visit, while almost all patients like Q would. The binary flag hides this.
+
+Staff time is limited. Giving both the same costly action, such as a home visit, spreads effort
+thinly. A tiered response is better: Q gets a phone call and a home visit, while P gets a
+low-cost SMS reminder.
+
+If the only action is cheap, such as one SMS for everyone flagged, identical treatment would
+also be reasonable.
 
 \question{2.3}{2 marks}{Describe one setting for a threshold below $0.5$ and one for a threshold above $0.5$, with reasons.}
-\pending
+\textbf{Below 0.5 (for example $t = 0.3$).} Use this when missing a real case is costly and the
+action is cheap. For tuberculosis patients, a missed follow-up can cause treatment failure, while
+an SMS reminder costs almost nothing. A low threshold catches more patients who will miss
+(higher recall), and the extra false alarms only cost a few messages.
+
+\textbf{Above 0.5 (for example $t = 0.8$).} Use this when the action is expensive or limited.
+With only a few health workers for home visits, a high threshold sends them only to patients
+very likely to miss (higher precision), so their time is not wasted.
 
 % ------------------------------------------------------------------
-\subsection{Question 3 --- Evaluation under class imbalance}
+\subsection{Question 3: Evaluation under class imbalance}
 \wordlimit{300}
-Setting: about 2 in 100 households are eligible but unregistered; a vendor claims ``98\,\% accuracy''.
+Setting: about 2 in 100 households are eligible but unregistered, and a vendor claims ``98\% accuracy''.
 
-\question{3.1}{2 marks}{Why does 98\,\% accuracy not show the model is useful? Use a trivial classifier in your explanation.}
-\pending
+\question{3.1}{2 marks}{Why does 98\% accuracy not show the model is useful? Use a trivial classifier in your explanation.}
+Take a trivial classifier that predicts ``not eligible'' for every household. In a group of
+100 households it is right for the 98 that are not eligible and wrong for the 2 that are:
+\[
+  \text{Accuracy} = \frac{\text{TP}+\text{TN}}{\text{Total}} = \frac{0 + 98}{100} = 0.98.
+\]
+So 98\% accuracy is what you get by doing nothing. This classifier finds none of the
+eligible households:
+\[
+  \text{Recall} = \frac{\text{TP}}{\text{TP}+\text{FN}} = \frac{0}{0+2} = 0.
+\]
+Because eligible households are so rare, accuracy is dominated by the easy majority and says
+nothing about whether the model finds the households the scheme is looking for.
 
 \question{3.2}{2 marks}{Which two metrics would you request instead, and which question does each answer in this scheme?}
-\pending
+\textbf{Recall}, $\text{TP}/(\text{TP}+\text{FN})$. It answers: ``Of all the eligible
+households that are not yet registered, how many does the model find?'' Low recall means
+families who need food support are left out.
+
+\textbf{Precision}, $\text{TP}/(\text{TP}+\text{FP})$. It answers: ``Of the households the
+model flags, how many are really eligible?'' Low precision means field staff waste visits
+verifying households that are not eligible.
 
 \question{3.3}{2 marks}{Explain in plain language what a ROC-AUC of $0.5$ means.}
-\pending
+ROC-AUC measures how well the model ranks households. If we pick one eligible household and
+one non-eligible household at random, the AUC is the chance that the model gives the eligible
+one the higher score.
+
+An AUC of 0.5 means this happens only half the time, which is the same as tossing a coin. The
+model cannot tell eligible households apart from the rest. Changing the threshold will not
+help, because the scores themselves carry no useful information.
 
 % ------------------------------------------------------------------
-\subsection{Question 4 --- KNN and decision trees}
+\subsection{Question 4: KNN and decision trees}
 \wordlimit{300}
 Setting: predicting seed adoption from land size, distance to market, rainfall and schooling.
 
 \question{4.1}{2 marks}{If rainfall were recorded in metres instead of millimetres, what happens to KNN and decision-tree predictions, and why do they differ?}
-\pending
+\textbf{KNN: predictions change.} KNN finds neighbours using a distance over all features:
+\[
+  d(\vect{u},\vect{v}) = \sqrt{\textstyle\sum_j (u_j - v_j)^2}.
+\]
+In millimetres, a rainfall gap such as $1200 - 800 = 400$ dominates the gaps in land size or
+schooling. In metres it becomes $1.2 - 0.8 = 0.4$ and almost disappears. Different farmers
+become the nearest neighbours, so the predictions change.
+
+\textbf{Decision tree: predictions stay the same.} A tree splits on one feature at a time, such
+as ``rainfall $\leq 900$ mm'', which simply becomes ``rainfall $\leq 0.9$ m''. The same farmers
+fall on each side, so the tree and its predictions are unchanged.
+
+\textbf{Why they differ:} KNN mixes all features into one distance, so units matter. A tree
+compares each feature only with itself, so only the order of values matters.
 
 \question{4.2}{2 marks}{How does overfitting show up in KNN (as $K$ changes) and in a decision tree (as depth changes)?}
-\pending
+\textbf{KNN:} overfitting appears when $K$ is very small. With $K = 1$ each prediction copies
+the single nearest farmer, noise included, so training accuracy is perfect but accuracy on new
+farmers is lower. A larger $K$ smooths the predictions, and a very large $K$ underfits by
+predicting the majority class.
+
+\textbf{Decision tree:} overfitting appears when the tree is very deep. Leaves end up holding
+one or a few farmers, so the tree memorises the training data. Training accuracy keeps rising
+while validation accuracy falls. A very shallow tree underfits.
+
+In both, overfitting shows as a large gap between training and validation performance.
 
 \question{4.3}{2 marks}{For a panchayat committee, which model would you choose and what would you give up?}
-\pending
+\textbf{Choice: a decision tree.}
+
+A tree can be shown as a few if-then rules, for example: ``If land size is above 2 acres and the
+market is within 5 km, the farmer is likely to adopt.'' Committee members can follow, question
+and check each rule against local knowledge. KNN can only say ``similar farmers adopted'',
+which hides which factors matter.
+
+\textbf{What I give up:} a readable tree must be shallow, so it may be less accurate than KNN.
+Trees also draw step-like boundaries and can change a lot with small data changes.
 
 % ------------------------------------------------------------------
-\subsection{Question 5 --- Margins and support vectors}
+\subsection{Question 5: Margins and support vectors}
 \wordlimit{300}
-Setting: one feature $x$ (years of schooling); class $-1$ at $x\in\{2,5\}$, class $+1$ at $x\in\{8,10\}$; hard margin.
+Setting: one feature $x$ (years of schooling). Class $-1$ at $x\in\{2,5\}$ and class $+1$ at $x\in\{8,10\}$. Hard margin.
 
 \question{5.1}{2 marks}{State the maximum-margin boundary, the total margin width, and the support vectors.}
-\pending
+The closest points from the two classes are $x=5$ (class $-1$) and $x=8$ (class $+1$). The
+maximum-margin boundary lies halfway between them:
+\[
+  x^{*} = \frac{5+8}{2} = 6.5, \qquad \text{total margin width} = 8 - 5 = 3.
+\]
+The support vectors are $x = 5$ and $x = 8$. The rule is: predict $+1$ if $x > 6.5$,
+otherwise $-1$.
 
 \question{5.2}{2 marks}{A class $-1$ point is added at $x=7$. Give the new boundary and support vectors. What does this show?}
-\pending
+The closest opposite pair is now $x = 7$ (class $-1$) and $x = 8$ (class $+1$):
+\[
+  x^{*} = \frac{7+8}{2} = 7.5, \qquad \text{total margin width} = 8 - 7 = 1.
+\]
+The new support vectors are $x = 7$ and $x = 8$. The point $x = 5$ is no longer a support
+vector.
+
+This shows that the boundary depends only on the points closest to it (the support vectors).
+Points far from the boundary, such as $x = 2$ and $x = 10$, can move or be removed without
+changing the boundary. A single new point near the boundary can change it a lot.
 
 \question{5.3}{2 marks}{Instead, a class $-1$ point is added at $x=9$ (non-separable). How do small and large $C$ treat it, and which do you prefer?}
-\pending
+The point $x = 9$ lies between the class $+1$ points at 8 and 10, so no single cut-off can
+classify every point correctly. A soft-margin SVM allows violations and charges a penalty of
+$C$ for each unit of violation.
+
+\textbf{Small $C$:} violations are cheap. The SVM keeps a wide margin decided by the main
+groups and simply accepts $x = 9$ as an error, treating it like an outlier.
+
+\textbf{Large $C$:} violations are expensive, so the SVM tries hard to reduce the error at
+$x = 9$ and becomes sensitive to this one household. Here, no cut-off can put 9 on the
+$-1$ side without also misclassifying the $+1$ point at 8, so a large $C$ cannot remove the
+error. It only makes the solution depend more on a single unusual point, which risks
+overfitting.
+
+\textbf{Preference: a small $C$.} One unusual household should not decide the rule for
+everyone, and a wider margin usually generalises better to new households. A larger $C$
+would make sense only if we knew that households like $x = 9$ form a real, important group.

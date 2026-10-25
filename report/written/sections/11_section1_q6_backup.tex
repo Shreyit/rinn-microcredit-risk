@@ -1,14 +1,34 @@
-% BACKUP — NOT included in main.tex. Only the first five Section I answers are marked,
-% so swap this in only if one of Q1–Q5 is dropped.
-\subsection{Question 6 --- Data and deployment}
+% BACKUP: NOT included in main.tex. Only the first five Section I answers are marked,
+% so swap this in only if one of Q1 to Q5 is dropped.
+\subsection{Question 6: Data and deployment}
 \wordlimit{300}
-Setting: a dropout-risk model trained on two districts (90\,\% held-out accuracy) is to be used statewide.
+Setting: a dropout-risk model trained on two districts (90\% held-out accuracy) is to be used statewide.
 
 \question{6.1}{2 marks}{Give two reasons the training data may not represent students statewide, and how each could affect predictions.}
-\pending
+\textbf{Different local conditions.} The two districts may be more urban or better off than
+the state average. In remote, tribal or farming districts, students may drop out for other
+reasons, such as seasonal farm work, migration or long travel to school. The model has not
+seen these patterns, so it may miss at-risk students there.
+
+\textbf{Different schools and records.} Schools in the two districts may have better
+facilities, recent programmes or more complete records. Elsewhere, attendance records may be
+kept differently or have more gaps, so the same input values may mean something different and
+the risk scores may be wrong.
 
 \question{6.2}{2 marks}{Describe one harm from a false positive and one from a false negative. Which is more serious here?}
-\pending
+\textbf{False positive:} a student who is not at risk gets a home visit. This uses scarce staff
+time and may make the student or family feel labelled.
+
+\textbf{False negative:} a student who is at risk is missed, gets no support and may drop out.
+
+\textbf{More serious: the false negative.} Dropping out can affect the child's education and
+income for life and is hard to undo, while a false alarm mainly costs staff time.
 
 \question{6.3}{2 marks}{Name two kinds of additional evidence you would want before statewide use.}
-\pending
+\textbf{Testing in other districts.} Check performance on records from several different
+districts (rural, tribal and urban) that were not used in training, reporting recall and
+precision and not only accuracy.
+
+\textbf{A fairness check.} Compare error rates, especially the share of at-risk students
+missed, across groups such as gender, caste and income, to make sure no group is
+systematically missed.
