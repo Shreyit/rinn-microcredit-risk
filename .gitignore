@@ -8,8 +8,10 @@ __pycache__/
 
 # course material & personal submission artefacts — never publish
 assignment/
-submission/
 assignment_config.json
+!submission/
+!submission/assignment_config.json
+*.zip
 
 # LaTeX build products
 report/written/build/

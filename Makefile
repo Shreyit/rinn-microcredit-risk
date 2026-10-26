@@ -18,7 +18,6 @@ notebooks:      ## execute notebooks top-to-bottom, in place
 report:         ## compile the written report → report/written/build/main.pdf
 	cd $(REPORT) && mkdir -p build && \
 	PATH=$(TEX):$$PATH pdflatex -interaction=nonstopmode -output-directory=build main.tex >/dev/null && \
-	cd build && BIBINPUTS=.. PATH=$(TEX):$$PATH bibtex main >/dev/null && cd .. && \
 	PATH=$(TEX):$$PATH pdflatex -interaction=nonstopmode -output-directory=build main.tex >/dev/null && \
 	PATH=$(TEX):$$PATH pdflatex -interaction=nonstopmode -output-directory=build main.tex >/dev/null
 	@echo "→ $(REPORT)/build/main.pdf"

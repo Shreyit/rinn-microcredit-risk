@@ -1,4 +1,4 @@
-# Introduction to Machine Learning: Graded Assignment
+# Introduction to Machine Learning
 
 **Written Component: Sections I (Short Answers) and II (Hand Exercises)**
 
@@ -14,11 +14,9 @@ Tata Institute of Social Sciences, School of Analytics
 | **Date of submission** | 26 October 2026 |
 | **Section I answered** | Questions 1, 2, 3, 4 and 5 |
 
-**AI-use declaration.** Claude (Anthropic) was used in this assignment. **Sections I and II:** to typeset the document in LaTeX and Markdown (KaTeX), format the equations and tables, check the arithmetic in Python, and edit the wording of my answers for clarity and simplicity. **Section III:** to explain concepts and error messages and to suggest how to structure code, which I then ran, checked and adapted. I have checked every answer and result, and I can explain every step.
+**AI-use declaration.** Claude (Anthropic) was used in this assignment. **Sections I and II:** to typeset the document in LaTeX and Markdown (KaTeX), format the equations and tables, and edit the wording of my answers for clarity and simplicity. **Section III:** for help with the Python code, error messages and explanations of the script/syntax used.
 
 **Note on formulas.** Mathematical expressions in this file are written in LaTeX syntax for KaTeX rendering (`$...$` inline, `$$...$$` display). They display correctly in any KaTeX or MathJax viewer, such as VS Code Markdown preview, GitHub or Typora. A typeset PDF version of the same content is submitted alongside this file.
-
-**Word limits.** Equations, numerical working and tables are excluded from the word count, as specified in the brief.
 
 ---
 
@@ -566,7 +564,5 @@ $$
 
 # References
 
-- Hastie, T., Tibshirani, R. and Friedman, J. (2009). *The Elements of Statistical Learning: Data Mining, Inference, and Prediction*. 2nd edn. New York: Springer.
-- James, G., Witten, D., Hastie, T., Tibshirani, R. and Taylor, J. (2023). *An Introduction to Statistical Learning: with Applications in Python*. Cham: Springer.
-- Pedregosa, F. et al. (2011). Scikit-learn: Machine Learning in Python. *Journal of Machine Learning Research*, 12, 2825-2830.
-- Saito, T. and Rehmsmeier, M. (2015). The Precision-Recall Plot Is More Informative than the ROC Plot When Evaluating Binary Classifiers on Imbalanced Datasets. *PLoS ONE*, 10(3), e0118432.
+- James, G., Witten, D., Hastie, T., Tibshirani, R., & Taylor, J. (2023). *An introduction to statistical learning: With applications in Python*. Springer. https://doi.org/10.1007/978-3-031-38747-0
+- Newman, D. A. (2014). Missing data: Five practical guidelines. *Organizational Research Methods*, *17*(4), 372–411. https://doi.org/10.1177/1094428114548590

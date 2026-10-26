@@ -1,0 +1,17 @@
+{
+  "roll_number": "M2024BSASS027",
+  "seed": 3401336828,
+  "assigned_k": 9,
+  "assigned_max_depth": 4,
+  "version_id": "20AA1102C3",
+  "n_total": 900,
+  "n_train": 720,
+  "n_test": 180,
+  "test_positives": 36,
+  "master_checksum": "2AFAEA208FCBF28D",
+  "python_libs": {
+    "numpy": "2.4.6",
+    "pandas": "3.0.6",
+    "sklearn": "1.9.1"
+  }
+}
